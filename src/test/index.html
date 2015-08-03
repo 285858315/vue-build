@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <base href="<%=base%>"></base>
+	<script src="static/js/lodash.min.js?<%=version%>"></script>
+	<script src="static/js/moment.min.js?<%=version%>"></script>
+	<title></title>
+</head>
+<body>
+  <a v-link="/a">aaa</a>
+  <a v-link="/a/22">aaa</a>
+  <a v-link="/b">bbb</a>
+  <a v-link="/c">ccc</a>
+	<router-view class="view" v-transition="view" transition-mode="out-in"></router-view>
+	<script src="main.js?<%=version%>"></script>
+</body>
+</html>
