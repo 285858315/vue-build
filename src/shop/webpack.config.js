@@ -7,8 +7,8 @@ module.exports = {
         main:'./main.js'
     },
     output: {
-        path:__dirname+'../public/test/',
-        publicPath:'../test/',
+        path:__dirname+'../public/shop/',
+        publicPath:'../shop/',
         filename: "main.js",
         // chunkFilename: "[id].js"
     },
@@ -30,12 +30,12 @@ module.exports = {
     //     return [postcssfor]
     // },
     plugins: [
-           new webpack.optimize.UglifyJsPlugin({
-//             minimize: true,
-               compress: {
-                   warnings: false
-               }
-           })
-    ]
-//  devtool: 'source-map'
+        // new webpack.optimize.UglifyJsPlugin({
+        //     minimize: true,
+        //     compress: {
+        //         warnings: false
+        //     }
+        // })
+    ],
+    devtool: 'source-map'
 }
