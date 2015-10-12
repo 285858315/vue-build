@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<script src="vue.min.js"></script>
+	<title>async</title>
+</head>
+<body>
+	{{ok}}
+	<async-1></async-1>
+	<async-2></async-2>
+	<script type="text/javascript">
+		(function(){
+			var callbacks = {}
+			var installed = {}
+			window["vueLoader"] = window["vueLoader"] || function(id,resolve){
+				if(installed[id] === undefined){
+					var head = document.getElementsByTagName('head')[0];
+					if(/.js/.test(id)){
+						var script = document.createElement('script');
+						script.type = 'text/javascript';
+						script.charset = 'utf-8';
+						script.async = true;
+						script.src = id + ".js"
+						head.appendChild(script);
+					}					
+					if(/.css/.test(id)){											
+						var linkElement = document.createElement("link")
+						var head = getHeadElement()
+						linkElement.rel = "stylesheet"
+						head.appendChild(linkElement)
+					}
+				}else{
+					resolve(installed[id])
+				}
+			}
+			window["vueResolve"] = window["vueResolve"] || function(id,obj){
+				installed[id] = obj
+				callbacks[id](obj)
+			}
+		})()
+		
+		var app = new Vue({
+			data:function(){
+				return {
+					ok:Math.random()
+				}
+			},
+			el:"body",
+			components:{
+				"async-1":function(resolve){
+					resolve({
+						template:"async-1<async-2></async-2>",
+						components:{
+							"async-2":function(resolve){
+								vueLoader("async-2",resolve)
+							}
+						}
+					})
+				}
+//				,"async-2":function(resolve){
+//					vueLoader("async-2",resolve)
+//				}
+			}
+		})
+	</script>
+</body>
+</html>
